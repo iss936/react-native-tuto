@@ -5,11 +5,13 @@ class Search extends React.Component {
     render(){
         return (
             <View style={styles.main_container}>
-            <TextInput placeholder="Titre du film" style={styles.textinput} />
-            <Button style={styles.searchButton} title="Rechercher" onPress={() => {}}/>
+            {/* <TextInput placeholder="Titre du film" style={styles.textinput} />
+            <Button style={styles.searchButton} title="Rechercher" onPress={() => {}}/> */}
+            <View style={{backgroundColor: 'red', flex:1}} ></View>
+            <View style={{backgroundColor: 'green', flex:1}} ></View>
             
             </View>
-            
+
         );
     }    
 }
@@ -17,7 +19,8 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         marginTop:20,
-        flex: 1
+        flex: 1,
+        backgroundColor: 'yellow'
     },
     textinput: {
       marginTop: 30,
