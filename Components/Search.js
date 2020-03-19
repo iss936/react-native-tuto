@@ -1,15 +1,22 @@
 import React from 'react'
-import {StyleSheet, TextInput, View, Button } from 'react-native';
+import {StyleSheet, TextInput, View, Button, Text, FlatList, Item } from 'react-native';
+import films from './../helpers/filmDatas';
+import FilmItem from './FilmItem';
 
 class Search extends React.Component {
     render(){
         return (
             <View style={styles.main_container}>
-            {/* <TextInput placeholder="Titre du film" style={styles.textinput} />
-            <Button style={styles.searchButton} title="Rechercher" onPress={() => {}}/> */}
-            <View style={{backgroundColor: 'red', flex:1}} ></View>
-            <View style={{backgroundColor: 'green', flex:1}} ></View>
-            
+            <Text style={styles.h1}>Rechercher un film</Text>
+            <TextInput placeholder="Titre du film" style={styles.textinput} />
+            <Button style={styles.searchButton} title="Rechercher" onPress={() => {}}/>
+
+            <FlatList
+                style={styles.list}
+                data={films}
+                renderItem={({ item }) => <FilmItem film= {item} /> }
+                keyExtractor={item => item.id.toString()}
+            />
             </View>
 
         );
@@ -18,9 +25,12 @@ class Search extends React.Component {
 
 const styles = StyleSheet.create({
     main_container: {
-        marginTop:20,
+        marginTop: 40,
         flex: 1,
-        backgroundColor: 'yellow'
+        // backgroundColor: 'yellow'
+    },
+    list: {
+        marginTop: 40
     },
     textinput: {
       marginTop: 30,
@@ -31,6 +41,10 @@ const styles = StyleSheet.create({
       borderColor: '#000000',
       borderWidth: 1,
       paddingLeft: 5
+    },
+    h1: {
+        fontSize: 20,
+        alignSelf: 'center'
     },
 
     searchButton: {
