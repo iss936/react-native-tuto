@@ -4,8 +4,8 @@ const API_TOKEN = '17d467d45f6e00397bb32630d72b8652';
 const HOST_API = 'https://api.themoviedb.org/3';
 const HOST_IMAGE_API = 'https://image.tmdb.org/t/p/w500';
 
-export function getFilmsByText(filmName) {
-    const urlApi = HOST_API + '/search/movie?api_key='+ API_TOKEN + '&language=fr&query=' + filmName;
+export function getFilmsByText(filmName, page) {
+    const urlApi = HOST_API + '/search/movie?api_key='+ API_TOKEN + '&language=fr&query=' + filmName + '&page='+ page;
     console.log('====================================');
     console.log(urlApi);
     console.log('====================================');

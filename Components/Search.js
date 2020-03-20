@@ -8,22 +8,31 @@ class Search extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.searchedFilm = '';
+        this.page = 0;
+        this.totalPages = 0;
+        this.state = {
             films: [],
             isLoading: false
         };
-        searchedFilm: ""
+
     }
 
     // underscore pour indiquer que c'est une méthode privé (car en js méthode public/private not exist)
     _loadFilms() {
         if (this.searchedFilm.length > 0) {
             this.setState({ isLoading: true }) // Lancement du chargement
-            getFilmsByText(this.searchedFilm).then(data => 
+            getFilmsByText(this.searchedFilm, this.page+1).then(data => {
+                this.page = data.page;
+                this.totalPages = data.total_pages;
+                console.log('====================================');
+                console.log(this.totalPages);
+                console.log('====================================');
                 this.setState({ 
-                    films: data.results,
+                    films: [...this.state.films, ...data.results],
                     isLoading: false
                 })
+            }
             );
         }
     }
@@ -43,6 +52,18 @@ class Search extends React.Component {
         else
             return null;
       }
+    
+    _searchFilms() {
+        this.page = 0
+        this.totalPages = 0
+        this.setState({
+          films: [],
+        }, () => { 
+            // we are in the second parameter of setState we enter here when the first param is execute because setState is asynchronous
+            console.log("Page : " + this.page + " / TotalPages : " + this.totalPages + " / Nombre de films : " + this.state.films.length)
+            this._loadFilms() 
+        })
+    }
     // si un seState est setté la méthode render est rechargé
     render(){
         console.log('====================================');
@@ -51,14 +72,20 @@ class Search extends React.Component {
         return (
             <View style={styles.main_container}>
                 <Text style={styles.h1}>Rechercher un film</Text>
-                <TextInput onSubmitEditing={() => this._loadFilms() } onChangeText={(text) => this._searchTextInputChanged(text) } placeholder="Titre du film" style={styles.textinput} />
-                <Button style={styles.searchButton} title="Rechercher" onPress={ () => this._loadFilms() }/>
+                <TextInput onSubmitEditing={() => this._searchFilms() } onChangeText={(text) => this._searchTextInputChanged(text) } placeholder="Titre du film" style={styles.textinput} />
+                <Button style={styles.searchButton} title="Rechercher" onPress={ () => this._searchFilms() }/>
 
                 <FlatList
                     style={styles.list}
                     data={this.state.films}
                     renderItem={({ item }) => <FilmItem film= {item} /> }
                     keyExtractor={item => item.id.toString()}
+                    onEndReachedThreshold={0.5}
+                    onEndReached={() => {
+                        if(this.page < this.totalPages) {
+                            this._loadFilms();
+                        }
+                    }}
                 />
 
             { this.state.isLoading ?
