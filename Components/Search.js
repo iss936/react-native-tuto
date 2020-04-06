@@ -64,10 +64,17 @@ class Search extends React.Component {
             this._loadFilms() 
         })
     }
+
+    _displayDetailForFilm = (idFilm) => {
+        console.log("Display film with id " + idFilm)
+        this.props.navigation.navigate("FilmDetail", {idFilm: idFilm});
+    }
+
     // si un seState est setté la méthode render est rechargé
     render(){
         console.log('====================================');
-        console.log('RENDER');
+        console.log('RENDER SEARCH');
+        console.log(this.props);
         console.log('====================================');
         return (
             <View style={styles.main_container}>
@@ -78,7 +85,7 @@ class Search extends React.Component {
                 <FlatList
                     style={styles.list}
                     data={this.state.films}
-                    renderItem={({ item }) => <FilmItem film= {item} /> }
+                    renderItem={({ item }) => <FilmItem film= {item} displayDetailForFilm={this._displayDetailForFilm} /> }
                     keyExtractor={item => item.id.toString()}
                     onEndReachedThreshold={0.5}
                     onEndReached={() => {
