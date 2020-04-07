@@ -72,10 +72,7 @@ class Search extends React.Component {
 
     // si un seState est setté la méthode render est rechargé
     render(){
-        console.log('====================================');
-        console.log('RENDER SEARCH');
-        console.log(this.props);
-        console.log('====================================');
+
         return (
             <View style={styles.main_container}>
                 <Text style={styles.h1}>Rechercher un film</Text>

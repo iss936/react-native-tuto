@@ -6,9 +6,7 @@ const HOST_IMAGE_API = 'https://image.tmdb.org/t/p/w500';
 
 export function getFilmsByText(filmName, page) {
     const urlApi = HOST_API + '/search/movie?api_key='+ API_TOKEN + '&language=fr&query=' + filmName + '&page='+ page;
-    console.log('====================================');
-    console.log(urlApi);
-    console.log('====================================');
+
     return fetch(urlApi)
     .then((response) => response.json())
     .catch((error) => console.error(error));
@@ -16,4 +14,14 @@ export function getFilmsByText(filmName, page) {
 
 export function getImageFromApi (name) {
     return HOST_IMAGE_API + name;
+}
+
+export function getFilmDetail(idFilm) {
+    const urlApi = HOST_API + '/movie/'+ idFilm +'?api_key='+ API_TOKEN + '&language=fr';
+    console.log('=================callFilmDetail===================');
+    console.log(urlApi);
+    console.log('===================endCallFilmDetail=================');
+    return fetch(urlApi)
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
 }
