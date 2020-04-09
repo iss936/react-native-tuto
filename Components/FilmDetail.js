@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, ScrollView, Image, ActivityIndicator } from 're
 import { getFilmDetail, getImageFromApi } from './../API/TMDBAPI';
 import moment from 'moment'
 import numeral from 'numeral'
+import { connect } from 'react-redux';
 
 class FilmDetail extends React.Component {
   constructor(props) {
@@ -61,6 +62,9 @@ class FilmDetail extends React.Component {
   }
 
   render() {
+    console.log('================PROPS STATES ====================');
+    console.log(this.props);
+    console.log('================END PROPS STATES====================');
     return (
       <View style={styles.main_container}>
         {this._displayLoading()}
@@ -115,4 +119,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FilmDetail
+// We want only favoriteFilms of the global state
+const mapStateToProps = (state) => {
+   return {
+     favoriteFilms: state.favoriteFilms
+   };
+}
+
+export default connect(mapStateToProps)(FilmDetail);
