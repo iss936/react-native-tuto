@@ -14,7 +14,7 @@ export function toggleFavorite(state = initialState, action) {
             }
             else { // film not exist 
                 nextState = {...state, 
-                    favoriteFilms: [...state.favoriteFilms, action.value.id]
+                    favoriteFilms: [...state.favoriteFilms, action.value]
                 }
             }
 
