@@ -15,7 +15,11 @@ class FilmDetail extends React.Component {
   }
 
   componentDidMount() {
-    getFilmDetail(this.props.navigation.state.params.idFilm).then(data => {
+    console.log('=================DID MOUNT===================');
+    console.log(this.props.route.params.idFilm);
+    // console.log(this.props.navigation.state.params.idFilm); avant
+    console.log('=================END DID MOUNT===================');
+    getFilmDetail(this.props.route.params.idFilm).then(data => {
       this.setState({
         film: data,
         isLoading: false
@@ -24,8 +28,8 @@ class FilmDetail extends React.Component {
   }
   
   componentDidUpdate() {
-    console.log("componentDidUpdate : ")
-    console.log(this.props.favoriteFilms)
+    // console.log("componentDidUpdate : ")
+    // console.log(this.props.favoriteFilms)
   }
 
   _displayLoading() {
@@ -89,9 +93,6 @@ class FilmDetail extends React.Component {
   }
 
   render() {
-    console.log('================PROPS STATES ====================');
-    console.log(this.props);
-    console.log('================END PROPS STATES====================');
     return (
       <View style={styles.main_container}>
         {this._displayLoading()}

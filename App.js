@@ -4,11 +4,14 @@ import React from 'react';
 import Navigation from './Navigation/Navigation';
 import { Provider } from 'react-redux';
 import Store from './Store/configureStore';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { MyTabs } from './Navigation/Navigation';
 export default function App() {
   return (
     <Provider store={Store}>
-      <Navigation/>
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
     </Provider>
   );
 }

@@ -4,6 +4,7 @@ import films from './../helpers/filmDatas';
 import FilmItem from './FilmItem';
 import { getFilmsByText } from './../API/TMDBAPI';
 import { connect } from 'react-redux';
+import FilmList from './FilmList';
 
 class Search extends React.Component {
 
@@ -26,9 +27,6 @@ class Search extends React.Component {
             getFilmsByText(this.searchedFilm, this.page+1).then(data => {
                 this.page = data.page;
                 this.totalPages = data.total_pages;
-                console.log('====================================');
-                console.log(this.totalPages);
-                console.log('====================================');
                 this.setState({ 
                     films: [...this.state.films, ...data.results],
                     isLoading: false
@@ -67,7 +65,6 @@ class Search extends React.Component {
     }
 
     _displayDetailForFilm = (idFilm) => {
-        console.log("Display film with id " + idFilm)
         this.props.navigation.navigate("FilmDetail", {idFilm: idFilm});
     }
 
