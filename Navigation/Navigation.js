@@ -35,6 +35,12 @@ const SearchStackNavigator = () => (
     </Stack.Navigator>
 );
 
+const FavoritesStackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Favoris" component={Favorites} />
+    <Stack.Screen name="FilmDetail" component={FilmDetail} />
+  </Stack.Navigator>
+);
   const MoviesTabNavigator = createBottomTabNavigator();
   
   export function MyTabs() {
@@ -53,7 +59,7 @@ const SearchStackNavigator = () => (
         />
         <MoviesTabNavigator.Screen 
           name="Favoris" 
-          component={Favorites}
+          component={FavoritesStackNavigator}
           options={{
             tabBarIcon: () => {
               return <Image

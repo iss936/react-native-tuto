@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, FlatList } from 'react-native'
+import { StyleSheet, FlatList, Text, View } from 'react-native'
 import FilmItem from './FilmItem'
 import { connect } from 'react-redux'
 
@@ -17,11 +17,24 @@ class FilmList extends React.Component {
     // On a récupéré les informations de la navigation, on peut afficher le détail du film
     this.props.navigation.navigate('FilmDetail', {idFilm: idFilm})
   }
+  
+  _listEmptyComponent = () => {
+    console.log('yessss');
+    if(this.props.favoriteList) {
+      return (
+        <View>
+            <Text>Aucun favoris pour le moment</Text>
+        </View>
+      )
+    }
+    
+}
 
   render() {
     return (
         <FlatList
           style={styles.list}
+          ListEmptyComponent={this._listEmptyComponent()}
           data={this.props.films}
           extraData={this.props.favoriteFilms}
           keyExtractor={(item) => item.id.toString()}
@@ -34,9 +47,11 @@ class FilmList extends React.Component {
           )}
           onEndReachedThreshold={0.5}
           onEndReached={() => {
-            if (this.props.page < this.props.totalPages) {
-              // On appelle la méthode loadFilm du component Search pour charger plus de films
-              this.props.loadFilms()
+            if(!this.props.favoriteList) {
+              if (this.props.page < this.props.totalPages) {
+                // On appelle la méthode loadFilm du component Search pour charger plus de films
+                this.props.loadFilms()
+              }
             }
           }}
         />
